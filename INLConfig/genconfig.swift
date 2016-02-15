@@ -18,6 +18,15 @@ func genObjCHeaderForConfig(config: NSDictionary, configName: String) -> String 
 
 		hFile += "-(\(type) *)\(name);\n"
 	}
+
+	hFile += "\n// Convenience\n"
+	for (key, value) in config {
+		let type = typeForValue(value)
+		let name = String(key).decapitalizedString
+
+		hFile += "+(\(type) *)\(name);\n"
+	}
+
 	hFile += "\n@end"
 	return hFile
 }
@@ -36,6 +45,17 @@ func genObjCImplementationForConfig(config: NSDictionary, configName: String) ->
 		mFile += "\treturn [self \(getterForValue(value)):@\"\(String(key))\"];\n"
 		mFile += "}\n\n"
 	}
+
+	mFile += "// Convenience\n"
+	for (key, value) in config {
+		let type = typeForValue(value)
+		let name = String(key).decapitalizedString
+
+		mFile += "+(\(type) *)\(name) {\n"
+		mFile += "\treturn [[self \(configName.decapitalizedString)]\(name)];\n"
+		mFile += "}\n\n"
+	}
+
 	mFile += "@end"
 	return mFile
 }
@@ -55,6 +75,16 @@ func genSwiftForConfig(config: NSDictionary, configName: String) -> String {
 
 		swiftFile += "\n\tvar \(name): \(type)? {\n"
 		swiftFile += "\t\treturn \(getterForValue(value))(\"\(String(key))\")\n"
+		swiftFile += "\t}\n"
+	}
+
+	swiftFile += "\n\t// Convenience"
+	for (key, value) in config {
+		let type = typeForValue(value)
+		let name = String(key).decapitalizedString
+
+		swiftFile += "\n\tstatic var \(name): \(type)? {\n"
+		swiftFile += "\t\treturn \(configName.decapitalizedString).\(name)\n"
 		swiftFile += "\t}\n"
 	}
 	swiftFile += "}"
@@ -176,5 +206,4 @@ func generateConfig() {
 }
 
 generateConfig()
-
 
