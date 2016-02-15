@@ -24,11 +24,14 @@ _Note: Do not modify the code in the generated files because it will be overwrit
 You can now use the configuration in your code
 ```
 // swift file, swift config
-INLConfig.theConfig.configItem
+INLConfig.sampleConfig.sampleString
+INLConfig.sampleNumber
 
 // swift file, objC config
-INLConfig.theConfig().configItem()
+INLConfig.sampleConfig().sampleString()
+INLConfig.sampleNumber()
 
 // objC file
-[[INLConfig theConfig] configItem];
+[[INLConfig sampleConfig] sampleString];
+[INLConfig sampleNumber];
 ```
