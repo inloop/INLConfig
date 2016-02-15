@@ -18,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C334DB951C71F3DC0044A919 /* genconfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = genconfig.swift; sourceTree = SOURCE_ROOT; };
 		C3BF6C701C5E228B005A1643 /* ConfigDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConfigDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3BF6C731C5E228B005A1643 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3BF6C751C5E228B005A1643 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -82,6 +83,7 @@
 		C3BF6C951C5E24D0005A1643 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
+				C334DB951C71F3DC0044A919 /* genconfig.swift */,
 				C3BF6CA51C5E266A005A1643 /* INLConfig.h */,
 				C3BF6CA61C5E266A005A1643 /* INLConfig.m */,
 			);
