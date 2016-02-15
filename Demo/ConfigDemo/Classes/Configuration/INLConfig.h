@@ -20,7 +20,7 @@
 
 @end
 
-#define loadConfig(plistName)\
+#define inl_loadConfig(plistName)\
 	static INLConfig * config = nil;\
 	static dispatch_once_t onceToken;\
 	dispatch_once(&onceToken, ^{\
