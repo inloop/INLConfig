@@ -9,11 +9,6 @@
 
 #define safeExtract(type, key) [self.config[key] isKindOfClass:[type class]] ? self.config[key] : nil;
 
-@interface INLConfig ()
-@property (strong, nonatomic) NSDictionary * config;
-@end
-
-
 @implementation INLConfig
 
 -(instancetype)initWithPlist:(NSString *)plistName {
@@ -24,10 +19,25 @@
 }
 
 -(void)loadConfigurationWithPlist:(NSString *)plistName {
-	NSString * plistPath = [[NSBundle mainBundle] pathForResource:plistName ofType:@"plist"];
+
+	NSString * plistPath = [self pathForConfig:plistName];
+
+	if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
+		plistPath = [[NSBundle mainBundle] pathForResource:plistName ofType:@"plist"];
+	}
+
 	if (plistPath) {
 		self.config = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+		self.configName = plistName;
 	}
+}
+
+-(NSString *)pathForConfig:(NSString *)filename {
+	return [[self storageDirectory] stringByAppendingPathComponent:filename];
+}
+
+-(NSString *)storageDirectory {
+	return [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
 }
 
 -(NSString *)stringForKey:(NSString *)key {

@@ -2,6 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>INLMeta</key>
+	<dict>
+		<key>configURL</key>
+		<string>https://dl.dropboxusercontent.com/s/ie24kpkzy7zw6rz/AnotherConfig.plist</string>
+		<key>versionURL</key>
+		<string>https://dl.dropboxusercontent.com/s/ejps29vpr0ywufw/version.txt</string>
+	</dict>
 	<key>MagicString</key>
 	<string>Works like magic</string>
 	<key>MagicArray</key>

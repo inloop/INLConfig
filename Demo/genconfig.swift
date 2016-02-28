@@ -6,89 +6,77 @@ enum Lang {
 	case objC, swift
 }
 
+extension NSDictionary {
+
+	func varGenReduce(reduceBlock:(key: String, value: AnyObject, type: String, name: String) -> String) -> String {
+		var code = ""
+		for (key, value) in self {
+			if String(key) == "INLMeta" {
+				continue
+			}
+			let type = typeForValue(value)
+			let name = String(key).decapitalizedString
+
+			code += reduceBlock(key: String(key), value: value, type: type, name: name)
+		}
+		return code
+	}
+}
+
 func genObjCHeaderForConfig(config: NSDictionary, configName: String) -> String {
-	var hFile = "\n#import \"INLConfig.h\"\n\n"
-	hFile += "//! Automatically generated file. Do not modify! \n\n"
-	hFile += "@interface INLConfig (\(configName))\n\n"
-	hFile += "+(INLConfig *)\(configName.decapitalizedString);\n\n"
-
-	for (key, value) in config {
-		let type = typeForValue(value)
-		let name = String(key).decapitalizedString
-
-		hFile += "-(\(type) *)\(name);\n"
-	}
-
-	hFile += "\n// Convenience\n"
-	for (key, value) in config {
-		let type = typeForValue(value)
-		let name = String(key).decapitalizedString
-
-		hFile += "+(\(type) *)\(name);\n"
-	}
-
-	hFile += "\n@end"
-	return hFile
+	return "\n#import \"INLConfig.h\"\n\n"
+		+ "//! Automatically generated file. Do not modify! \n\n"
+		+ "@interface INLConfig (\(configName))\n\n"
+		+ "+(INLConfig *)\(configName.decapitalizedString);\n"
+		+ config.varGenReduce { key, value, type, name in
+			"-(\(type) *)\(name);\n"
+		  }
+		+ "\n// Convenience\n"
+		+ config.varGenReduce { key, value, type, name in
+			"+(\(type) *)\(name);\n"
+		  }
+		+ "\n@end"
 }
 
 func genObjCImplementationForConfig(config: NSDictionary, configName: String) -> String {
-	var mFile = "\n#import \"\(configName).h\"\n\n"
-	mFile += "//! Automatically generated file. Do not modify!\n\n"
-	mFile += "@implementation INLConfig (\(configName))\n\n"
-	mFile += "+(INLConfig *)\(configName.decapitalizedString) {\n\tinl_loadConfig(@\"\(configName)\")\n}\n\n"
-
-	for (key, value) in config {
-		let type = typeForValue(value)
-		let name = String(key).decapitalizedString
-
-		mFile += "-(\(type) *)\(name) {\n"
-		mFile += "\treturn [self \(getterForValue(value)):@\"\(String(key))\"];\n"
-		mFile += "}\n\n"
-	}
-
-	mFile += "// Convenience\n"
-	for (key, value) in config {
-		let type = typeForValue(value)
-		let name = String(key).decapitalizedString
-
-		mFile += "+(\(type) *)\(name) {\n"
-		mFile += "\treturn [[self \(configName.decapitalizedString)]\(name)];\n"
-		mFile += "}\n\n"
-	}
-
-	mFile += "@end"
-	return mFile
+	return "\n#import \"\(configName).h\"\n\n"
+		+ "//! Automatically generated file. Do not modify!\n\n"
+		+ "@implementation INLConfig (\(configName))\n\n"
+		+ "+(INLConfig *)\(configName.decapitalizedString) {\n\tinl_loadConfig(@\"\(configName)\")\n}\n\n"
+		+ config.varGenReduce { key, value, type, name in
+			"-(\(type) *)\(name) {\n"
+			+ "\treturn [self \(getterForValue(value)):@\"\(String(key))\"];\n"
+			+ "}\n\n"
+		  }
+		+ "// Convenience\n"
+		+ config.varGenReduce { key, value, type, name in
+			"+(\(type) *)\(name) {\n"
+			+ "\treturn [[self \(configName.decapitalizedString)] \(name)];\n"
+			+ "}\n\n"
+		  }
+		+ "@end"
 }
 
 func genSwiftForConfig(config: NSDictionary, configName: String) -> String {
-	var swiftFile = "\n//! Automatically generated file. Do not modify!\n\n"
-	swiftFile += "extension INLConfig {\n\n"
-	swiftFile += "\tstatic var \(configName.decapitalizedString): INLConfig {\n"
-	swiftFile += "\t\tstruct Static {\n"
-	swiftFile += "\t\t\tstatic let config: INLConfig = INLConfig(plist: \"\(configName)\")\n"
-	swiftFile += "\t\t}\n\t\treturn Static.config\n"
-	swiftFile += "\t}\n"
-
-	for (key, value) in config {
-		let type = typeForValue(value)
-		let name = String(key).decapitalizedString
-
-		swiftFile += "\n\tvar \(name): \(type)? {\n"
-		swiftFile += "\t\treturn \(getterForValue(value))(\"\(String(key))\")\n"
-		swiftFile += "\t}\n"
-	}
-
-	swiftFile += "\n\t// Convenience"
-	for (key, value) in config {
-		let type = typeForValue(value)
-		let name = String(key).decapitalizedString
-
-		swiftFile += "\n\tstatic var \(name): \(type)? {\n"
-		swiftFile += "\t\treturn \(configName.decapitalizedString).\(name)\n"
-		swiftFile += "\t}\n"
-	}
-	swiftFile += "}"
-	return swiftFile
+	return "\n//! Automatically generated file. Do not modify!\n\n"
+		+ "extension INLConfig {\n\n"
+		+ "\tstatic var \(configName.decapitalizedString): INLConfig {\n"
+		+ "\t\tstruct Static {\n"
+		+ "\t\t\tstatic let config: INLConfig = INLConfig(plist: \"\(configName)\")\n"
+		+ "\t\t}\n\t\treturn Static.config\n"
+		+ "\t}\n"
+		+ config.varGenReduce { key, value, type, name in
+			"\n\tvar \(name): \(type) {\n"
+			+ "\t\treturn \(getterForValue(value))(\"\(String(key))\")!\n"
+			+ "\t}\n"
+		  }
+		+ "\n\t// Convenience"
+		+ config.varGenReduce { key, value, type, name in
+			"\n\tstatic var \(name): \(type) {\n"
+			+ "\t\treturn \(configName.decapitalizedString).\(name)\n"
+			+ "\t}\n"
+		  }
+		+ "}"
 }
 
 func pathForFile(file: String, root: String) -> String? {
@@ -154,7 +142,7 @@ func generateConfig() {
 
 
 	// Get path
-	let task = NSTask();
+	let task = NSTask()
 	let pipe = NSPipe()
 	task.standardOutput = pipe
 	task.launchPath = "/bin/pwd"
@@ -197,7 +185,7 @@ func generateConfig() {
 
 		// Open finder if a new file was added so you can drag it to Xcode
 		if !fileExist {
-			let task = NSTask();
+			let task = NSTask()
 			task.launchPath = "/usr/bin/open"
 			task.arguments = [path]
 			task.launch()
@@ -206,5 +194,4 @@ func generateConfig() {
 }
 
 generateConfig()
-
 

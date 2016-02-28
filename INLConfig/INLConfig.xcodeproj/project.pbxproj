@@ -7,11 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C314FC681C830F4200C04540 /* INLConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C314FC661C830F4200C04540 /* INLConfig.swift */; };
+		C314FC691C830F4200C04540 /* INLConfigDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C314FC671C830F4200C04540 /* INLConfigDownloader.swift */; };
 		C3F641391C6DC67700F263CA /* INLConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F641381C6DC67700F263CA /* INLConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3F641411C6DC7A600F263CA /* INLConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F641401C6DC7A600F263CA /* INLConfig.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C314FC661C830F4200C04540 /* INLConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = INLConfig.swift; sourceTree = "<group>"; };
+		C314FC671C830F4200C04540 /* INLConfigDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = INLConfigDownloader.swift; sourceTree = "<group>"; };
 		C3F641351C6DC67700F263CA /* INLConfig.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = INLConfig.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3F641381C6DC67700F263CA /* INLConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INLConfig.h; sourceTree = "<group>"; };
 		C3F6413A1C6DC67700F263CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -52,6 +56,8 @@
 				C3F641421C6DC7AE00F263CA /* genconfig.swift */,
 				C3F641381C6DC67700F263CA /* INLConfig.h */,
 				C3F641401C6DC7A600F263CA /* INLConfig.m */,
+				C314FC661C830F4200C04540 /* INLConfig.swift */,
+				C314FC671C830F4200C04540 /* INLConfigDownloader.swift */,
 				C3F6413A1C6DC67700F263CA /* Info.plist */,
 			);
 			path = INLConfig;
@@ -136,6 +142,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3F641411C6DC7A600F263CA /* INLConfig.m in Sources */,
+				C314FC681C830F4200C04540 /* INLConfig.swift in Sources */,
+				C314FC691C830F4200C04540 /* INLConfigDownloader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,7 +187,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -220,7 +228,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -233,6 +241,7 @@
 		C3F6413E1C6DC67700F263CA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -244,12 +253,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Inloop.INLConfig;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		C3F6413F1C6DC67700F263CA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -283,6 +294,7 @@
 				C3F6413F1C6DC67700F263CA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

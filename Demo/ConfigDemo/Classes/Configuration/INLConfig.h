@@ -9,6 +9,9 @@
 
 @interface INLConfig : NSObject
 
+@property (strong, nonatomic) NSDictionary * _Nonnull config;
+@property (strong, nonatomic) NSString * _Nonnull configName;
+
 -(instancetype _Nonnull)initWithPlist:(NSString * _Nonnull)plistName;
 -(void)loadConfigurationWithPlist:(NSString * _Nonnull)plistName;
 
@@ -17,6 +20,8 @@
 -(NSData * _Nullable)dataForKey:(NSString * _Nonnull)key;
 -(NSArray * _Nullable)arrayForKey:(NSString * _Nonnull)key;
 -(NSDictionary * _Nullable)dictionaryForKey:(NSString * _Nonnull)key;
+
+-(NSString * _Nonnull)pathForConfig:(NSString * _Nonnull)filename;
 
 @end
 

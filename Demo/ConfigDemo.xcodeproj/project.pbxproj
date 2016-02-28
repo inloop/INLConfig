@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C39782991C808530006372F0 /* INLConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39782981C808530006372F0 /* INLConfig.swift */; };
+		C397829F1C809572006372F0 /* INLConfigDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C397829E1C809572006372F0 /* INLConfigDownloader.swift */; };
 		C3BF6C741C5E228B005A1643 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BF6C731C5E228B005A1643 /* AppDelegate.swift */; };
 		C3BF6C761C5E228B005A1643 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BF6C751C5E228B005A1643 /* ViewController.swift */; };
 		C3BF6C791C5E228B005A1643 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3BF6C771C5E228B005A1643 /* Main.storyboard */; };
@@ -19,6 +21,8 @@
 
 /* Begin PBXFileReference section */
 		C334DB951C71F3DC0044A919 /* genconfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = genconfig.swift; sourceTree = SOURCE_ROOT; };
+		C39782981C808530006372F0 /* INLConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = INLConfig.swift; path = Classes/Configuration/INLConfig.swift; sourceTree = "<group>"; };
+		C397829E1C809572006372F0 /* INLConfigDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = INLConfigDownloader.swift; path = Classes/Configuration/INLConfigDownloader.swift; sourceTree = "<group>"; };
 		C3BF6C701C5E228B005A1643 /* ConfigDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConfigDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3BF6C731C5E228B005A1643 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3BF6C751C5E228B005A1643 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +90,8 @@
 				C334DB951C71F3DC0044A919 /* genconfig.swift */,
 				C3BF6CA51C5E266A005A1643 /* INLConfig.h */,
 				C3BF6CA61C5E266A005A1643 /* INLConfig.m */,
+				C39782981C808530006372F0 /* INLConfig.swift */,
+				C397829E1C809572006372F0 /* INLConfigDownloader.swift */,
 			);
 			name = Configuration;
 			sourceTree = "<group>";
@@ -221,6 +227,8 @@
 				C3BF6C761C5E228B005A1643 /* ViewController.swift in Sources */,
 				C3BF6C741C5E228B005A1643 /* AppDelegate.swift in Sources */,
 				C3BF6CA71C5E266A005A1643 /* INLConfig.m in Sources */,
+				C39782991C808530006372F0 /* INLConfig.swift in Sources */,
+				C397829F1C809572006372F0 /* INLConfigDownloader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

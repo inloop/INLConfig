@@ -22,9 +22,17 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		// Test - Uncoment the SampleConfig.h import in the ConfigDemo-Bridging-Header.h
+		//! Download the latest version
+//		INLConfig.anotherConfig.updateConfig {
+//			self.test()
+//		}
+		test()
+	}
+
+	func test() {
+		//! Test - Uncoment the SampleConfig.h import in the ConfigDemo-Bridging-Header.h
 //		titleLabel.text = INLConfig.sampleConfig().sampleURL()
-//		titleLabel.text = "\(INLConfig.sampleNumber())"
+//		titleLabel.text = INLConfig.anotherConfig.magicString as String
 //		titleLabel.text = "\(INLConfig.anotherConfig.magicArray ?? 0)"
 	}
 
