@@ -4,9 +4,9 @@
 <dict>
 	<key>INLMeta</key>
 	<dict>
-		<key>configURL</key>
+		<key>config</key>
 		<string>https://dl.dropboxusercontent.com/s/ie24kpkzy7zw6rz/AnotherConfig.plist</string>
-		<key>versionURL</key>
+		<key>version</key>
 		<string>https://dl.dropboxusercontent.com/s/ejps29vpr0ywufw/version.txt</string>
 	</dict>
 	<key>MagicString</key>

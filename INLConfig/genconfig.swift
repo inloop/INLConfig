@@ -127,7 +127,7 @@ func generateConfig() {
 
 	// Get args
 	var configName = "Config"
-	var lang: Lang = .objC
+	var lang: Lang = .swift
 	if 1 < Process.arguments.count {
 		configName = Process.arguments[1]
 	}

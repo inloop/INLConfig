@@ -12,7 +12,7 @@ extension INLConfig {
 
 	func updateConfig(completion: (()->())?) {
 		guard let meta = config["INLMeta"],
-			  let versionURLStr = meta["versionURL"] as? String,
+			  let versionURLStr = meta["version"] as? String,
 			  let versionURL = NSURL(string: versionURLStr)
 		else {
 			downloadConfig(completion)
@@ -30,7 +30,7 @@ extension INLConfig {
 
 	func downloadConfig(completion: (()->())?) {
 		guard let meta = config["INLMeta"],
-			  let configURLStr = meta["configURL"] as? String,
+			  let configURLStr = meta["config"] as? String,
 			  let configURL = NSURL(string: configURLStr)
 		else {
 			return
