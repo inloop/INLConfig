@@ -2,9 +2,9 @@
 
 ## 1. Overview
 
-`INLConfig` is an iOS library for loading your configuration from a plist. Its goal is to have an easily maintainable configuration (by replacing things like global constants with a plist) without sacrificing productivity. After you add an item to the plist, you can start using it with autocomplete without doing any further configuration. This is achieved by a script that generates supporting code.
+`INLConfig` is an iOS library for loading your configuration from a plist. Its goal is to have an easily maintainable configuration (by replacing things like global constants with a plist) without sacrificing productivity. After you add an item to the plist, you can start using it with autocomplete without doing any further configuration. This is achieved by a script that generates supporting code. The library also supports remote updates.
 
-The library contains the `INLConfig` class that extracts your configuration from the plist and the `genconfig.swift` script that generates `INLConfig` categories/extensions for easy access to the items in the plist.
+The library contains the `INLConfig` class that extracts your configuration from the plist and the `genconfig.swift` script generates `INLConfig` categories/extensions for easy access to the items in the plist.
 
 ## 2. Setup
 
@@ -34,4 +34,23 @@ INLConfig.sampleNumber()
 // objC file
 [[INLConfig sampleConfig] sampleString];
 [INLConfig sampleNumber];
+```
+
+## 3. Remote configuration update
+The configuration can be updated to a newer version if the configuration file specifies the INLMeta dictionary. The dictionary should contain a “config” attribute containing an url for the configuration file and optionally a “version” attribute containing a url for a version file.
+```
+<key>INLMeta</key>
+<dict>
+	<key>config</key>
+	<string>https://an.url/SampleConfig.plist</string>
+	<key>version</key>
+	<string>https://an.url/version.txt</string>
+</dict>
+```
+
+The update is triggered by calling `updateConfig()`
+```
+INLConfig.sampleConfig.updateConfig {
+	// update successful
+}
 ```
