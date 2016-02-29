@@ -16,11 +16,11 @@
 /* Begin PBXFileReference section */
 		C314FC661C830F4200C04540 /* INLConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = INLConfig.swift; sourceTree = "<group>"; };
 		C314FC671C830F4200C04540 /* INLConfigDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = INLConfigDownloader.swift; sourceTree = "<group>"; };
+		C365B4791C84832B00CB2906 /* genconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = genconfig; path = ../../genconfig; sourceTree = "<group>"; };
 		C3F641351C6DC67700F263CA /* INLConfig.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = INLConfig.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3F641381C6DC67700F263CA /* INLConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INLConfig.h; sourceTree = "<group>"; };
 		C3F6413A1C6DC67700F263CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3F641401C6DC7A600F263CA /* INLConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INLConfig.m; sourceTree = "<group>"; };
-		C3F641421C6DC7AE00F263CA /* genconfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = genconfig.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +53,7 @@
 		C3F641371C6DC67700F263CA /* INLConfig */ = {
 			isa = PBXGroup;
 			children = (
-				C3F641421C6DC7AE00F263CA /* genconfig.swift */,
+				C365B4791C84832B00CB2906 /* genconfig */,
 				C3F641381C6DC67700F263CA /* INLConfig.h */,
 				C3F641401C6DC7A600F263CA /* INLConfig.m */,
 				C314FC661C830F4200C04540 /* INLConfig.swift */,
