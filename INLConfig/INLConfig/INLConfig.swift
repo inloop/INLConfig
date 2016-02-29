@@ -10,7 +10,7 @@ import Foundation
 
 extension INLConfig {
 
-	func updateConfig(completion: (()->())?) {
+	public func updateConfig(completion: (()->())?) {
 		guard let meta = config["INLMeta"],
 			  let versionURLStr = meta["version"] as? String,
 			  let versionURL = NSURL(string: versionURLStr)
