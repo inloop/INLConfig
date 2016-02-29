@@ -30,11 +30,11 @@ func genObjCHeaderForConfig(config: NSDictionary, configName: String) -> String 
 		+ "+(INLConfig *)\(configName.decapitalizedString);\n"
 		+ config.varGenReduce { key, value, type, name in
 			"-(\(type) *)\(name);\n"
-		}
+		  }
 		+ "\n// Convenience\n"
 		+ config.varGenReduce { key, value, type, name in
 			"+(\(type) *)\(name);\n"
-		}
+		  }
 		+ "\n@end"
 }
 
@@ -45,15 +45,15 @@ func genObjCImplementationForConfig(config: NSDictionary, configName: String) ->
 		+ "+(INLConfig *)\(configName.decapitalizedString) {\n\tinl_loadConfig(@\"\(configName)\")\n}\n\n"
 		+ config.varGenReduce { key, value, type, name in
 			"-(\(type) *)\(name) {\n"
-				+ "\treturn [self \(getterForValue(value)):@\"\(String(key))\"];\n"
-				+ "}\n\n"
-		}
+			+ "\treturn [self \(getterForValue(value)):@\"\(String(key))\"];\n"
+			+ "}\n\n"
+		  }
 		+ "// Convenience\n"
 		+ config.varGenReduce { key, value, type, name in
 			"+(\(type) *)\(name) {\n"
-				+ "\treturn [[self \(configName.decapitalizedString)] \(name)];\n"
-				+ "}\n\n"
-		}
+			+ "\treturn [[self \(configName.decapitalizedString)] \(name)];\n"
+			+ "}\n\n"
+		  }
 		+ "@end"
 }
 
@@ -67,15 +67,15 @@ func genSwiftForConfig(config: NSDictionary, configName: String) -> String {
 		+ "\t}\n"
 		+ config.varGenReduce { key, value, type, name in
 			"\n\tvar \(name): \(type) {\n"
-				+ "\t\treturn \(getterForValue(value))(\"\(String(key))\")!\n"
-				+ "\t}\n"
-		}
+			+ "\t\treturn \(getterForValue(value))(\"\(String(key))\")!\n"
+			+ "\t}\n"
+		  }
 		+ "\n\t// Convenience"
 		+ config.varGenReduce { key, value, type, name in
 			"\n\tstatic var \(name): \(type) {\n"
-				+ "\t\treturn \(configName.decapitalizedString).\(name)\n"
-				+ "\t}\n"
-		}
+			+ "\t\treturn \(configName.decapitalizedString).\(name)\n"
+			+ "\t}\n"
+		  }
 		+ "}"
 }
 

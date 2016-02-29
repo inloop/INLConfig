@@ -21,7 +21,7 @@ extension INLConfig {
 
 		let localVersion = NSUserDefaults.standardUserDefaults().stringForKey("inlconfig.\(configName).version")
 		INLConfigDownloader().get(versionURL) { version in
-			if version != localVersion {
+			if let version = version where version != localVersion {
 				self.downloadConfig(completion)
 				NSUserDefaults.standardUserDefaults().setObject(version, forKey: "inlconfig.\(self.configName).version")
 			}
