@@ -12,8 +12,8 @@ First, add a plist configuration file.
 
 To enable code generation add a new Run script build phase. For each of your configuration plists run the genconfig.swift script with two parameters: 1. the name of the configuration file without the .plist extension, 2. the programming language that should be generated (--objC and --swift are supported)
 ```
-./genconfig.swift SampleConfig --objC
-./genconfig.swift AnotherConfig --swift
+./Pods/INLConfig/genconfig SampleConfig --objC
+./Pods/INLConfig/genconfig AnotherConfig --swift
 ```
 
 After you build the project (cmd+B) a finder window will open with the created configuration files. Drag them into Xcode.
