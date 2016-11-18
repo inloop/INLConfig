@@ -9,26 +9,26 @@
 import Foundation
 
 class INLConfigDownloader {
-	let session: NSURLSession
+	let session: URLSession
 
 	init() {
-		let sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
+		let sessionConfiguration = URLSessionConfiguration.default
 		sessionConfiguration.timeoutIntervalForResource = 20
-		sessionConfiguration.HTTPMaximumConnectionsPerHost = 3
-		sessionConfiguration.requestCachePolicy = .UseProtocolCachePolicy;
+		sessionConfiguration.httpMaximumConnectionsPerHost = 3
+		sessionConfiguration.requestCachePolicy = .useProtocolCachePolicy;
 
-		session = NSURLSession(configuration: sessionConfiguration)
+		session = URLSession(configuration: sessionConfiguration)
 	}
 
-	func get(url: NSURL, completion:((String?)->())?) {
-		let task = session.dataTaskWithURL(url) { data, response, error in
+	func get(_ url: URL, completion:((String?)->())?) {
+		let task = session.dataTask(with: url, completionHandler: { data, response, error in
 			guard error == nil, let data = data else {
 				completion?(nil)
 				return
 			}
-			completion?(String(data: data, encoding: NSUTF8StringEncoding))
+			completion?(String(data: data, encoding: String.Encoding.utf8))
 
-		}
+		}) 
 		task.resume()
 	}
 }

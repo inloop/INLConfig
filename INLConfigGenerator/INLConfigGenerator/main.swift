@@ -1,6 +1,5 @@
-#!/usr/bin/env xcrun --sdk macosx swift
-
 import Foundation
+import SwiftyJSON
 
 enum Lang {
     case objC, swift
@@ -129,9 +128,13 @@ func generateConfig() {
     // Get args
     var configName = "SampleConfig"
     var lang: Lang = .swift
+    let fileManager = FileManager.default
+    var rootPath = fileManager.currentDirectoryPath
+    
     if 1 < CommandLine.arguments.count {
         configName = CommandLine.arguments[1]
     }
+    
     if 2 < CommandLine.arguments.count {
         if	CommandLine.arguments[2] == "--swift" {
             lang = .swift
@@ -140,28 +143,29 @@ func generateConfig() {
             lang = .objC
         }
     }
-    print("Config name \(configName) language \(lang)")
-
-    // Generate files
-    let fileManager = FileManager.default
-    let rootPath = fileManager.currentDirectoryPath
-    print("Root path \(rootPath)")
+    
+    if 3 < CommandLine.arguments.count {
+        rootPath = CommandLine.arguments[3]
+    }
+    
+    print("Config name \(configName) language \(lang) root path \(rootPath)")
     
     if let path = pathForFile("\(configName).json", root: rootPath) {
         print("Parsing json")
         do {
             let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
-
-            if let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject],
-                let dict = jsonObject as? Dictionary<String,String> {
-                print(dict)
+            
+            let jsonObject = JSON(data: data)
+            if jsonObject != JSON.null {
+                print(jsonObject)
+            } else {
+                print("Empty JSON")
             }
         } catch let error {
             print(error.localizedDescription)
         }
     } else if let path = pathForFile("\(configName).plist", root: rootPath),
-        let config = NSDictionary(contentsOfFile: "\(path)/\(configName).plist")
-    {
+        let config = NSDictionary(contentsOfFile: "\(path)/\(configName).plist") {
         print("Reading plist")
         var fileExist = false
         

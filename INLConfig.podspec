@@ -11,4 +11,6 @@ Pod::Spec.new do |spec|
 
 	spec.source_files = 'INLConfig/INLConfig/*.{h,m,swift}'
 	spec.resources = ['genconfig']
+
+	spec.dependency 'SwiftyJSON'
 end

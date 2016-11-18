@@ -1,0 +1,13 @@
+{
+    "ADict": {
+        "Two": 2,
+        "One": 1
+    },
+    "SampleNumber": 42,
+    "AnArray": [
+        "One",
+        "Two",
+        "Three"
+    ],
+    "SampleURL": "https:\/\/sampleurl.eu\/abc\/"
+}

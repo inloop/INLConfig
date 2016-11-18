@@ -10,38 +10,38 @@ import Foundation
 
 extension INLConfig {
 
-	public func updateConfig(completion: (()->())?) {
-		guard let meta = config["INLMeta"],
-			  let versionURLStr = meta["version"] as? String,
-			  let versionURL = NSURL(string: versionURLStr)
+	public func updateConfig(_ completion: (()->())?) {
+		guard let meta = config["INLMeta"] as? NSDictionary,
+			  let versionURLStr = meta["version"],
+			  let versionURL = URL(string: versionURLStr as! String)
 		else {
 			downloadConfig(completion)
 			return
 		}
 
-		let localVersion = NSUserDefaults.standardUserDefaults().stringForKey("inlconfig.\(configName).version")
+		let localVersion = UserDefaults.standard.string(forKey: "inlconfig.\(configName).version")
 		INLConfigDownloader().get(versionURL) { version in
-			if let version = version where version != localVersion {
+			if let version = version, version != localVersion {
 				self.downloadConfig(completion)
-				NSUserDefaults.standardUserDefaults().setObject(version, forKey: "inlconfig.\(self.configName).version")
+				UserDefaults.standard.set(version, forKey: "inlconfig.\(self.configName).version")
 			}
 		}
 	}
 
-	func downloadConfig(completion: (()->())?) {
-		guard let meta = config["INLMeta"],
-			  let configURLStr = meta["config"] as? String,
-			  let configURL = NSURL(string: configURLStr)
+	func downloadConfig(_ completion: (()->())?) {
+		guard let meta = config["INLMeta"] as? NSDictionary,
+			  let configURLStr = meta["config"],
+			  let configURL = URL(string: configURLStr as! String)
 		else {
 			return
 		}
 
 		INLConfigDownloader().get(configURL) { configuration in
 			if let configuration = configuration {
-				NSFileManager.defaultManager().createFileAtPath(self.pathForConfig(self.configName), contents: configuration.dataUsingEncoding(NSUTF8StringEncoding), attributes: nil)
-				self.loadConfigurationWithPlist(self.configName)
+				FileManager.default.createFile(atPath: self.path(forConfig: self.configName), contents: configuration.data(using: String.Encoding.utf8), attributes: nil)
+				self.loadConfiguration(withPlist: self.configName)
 				if let completion = completion {
-					dispatch_async(dispatch_get_main_queue()) {
+					DispatchQueue.main.async {
 						completion()
 					}
 				}
