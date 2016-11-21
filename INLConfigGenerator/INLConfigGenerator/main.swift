@@ -1,5 +1,4 @@
 import Foundation
-import SwiftyJSON
 
 enum Lang {
     case objC, swift
@@ -56,13 +55,18 @@ func genObjCImplementationForConfig(_ config: NSDictionary, configName: String) 
         + "@end"
 }
 
-func genSwiftForConfig(_ config: NSDictionary, configName: String) -> String {
-    return "\n//! Automatically generated file. Do not modify!\n\n"
+func genSwiftForConfig(_ config: NSDictionary, configName: String, isJson: Bool) -> String {
+    var result = "\n//! Automatically generated file. Do not modify!\n\n"
         + "extension INLConfig {\n\n"
         + "\tstatic var \(configName.decapitalizedString): INLConfig {\n"
         + "\t\tstruct Static {\n"
-        + "\t\t\tstatic let config: INLConfig = INLConfig(plist: \"\(configName)\")\n"
-        + "\t\t}\n\t\treturn Static.config\n"
+    if isJson {
+        result += "\t\t\tstatic let config: INLConfig = INLConfig()\n"
+            + "\t\t\tconfig.loadConfiguration(\"\(configName)\")\n"
+    } else {
+        result += "\t\t\tstatic let config: INLConfig = INLConfig(plist: \"\(configName)\")\n"
+    }
+    result += "\t\t}\n\t\treturn Static.config\n"
         + "\t}\n"
         + config.varGenReduce { key, value, type, name in
             "\n\tvar \(name): \(type) {\n"
@@ -76,6 +80,7 @@ func genSwiftForConfig(_ config: NSDictionary, configName: String) -> String {
                 + "\t}\n"
         }
         + "}"
+    return result
 }
 
 func pathForFile(_ file: String, root: String) -> String? {
@@ -123,6 +128,21 @@ func getterForValue(_ value: AnyObject) -> String {
     return "Any"
 }
 
+func convertJSON(_ json:Any) -> NSDictionary {
+    let result = NSMutableDictionary()
+    for (key, value) in json as! [String: Any] {
+        if let dict = value as? [String: Any] {
+            result.setValue(dict, forKey: key)
+        } else if let array = value as? [String] {
+            result.setValue(array, forKey: key)
+        } else {
+            result.setValue(value, forKey: key)
+        }
+    }
+    
+    return result
+}
+
 func generateConfig() {
     
     // Get args
@@ -148,51 +168,79 @@ func generateConfig() {
         rootPath = CommandLine.arguments[3]
     }
     
+    var config: NSDictionary!
+    var dir: String!
+    var isJson: Bool!
+    
     print("Config name \(configName) language \(lang) root path \(rootPath)")
     
     if let path = pathForFile("\(configName).json", root: rootPath) {
         print("Parsing json")
+        isJson = true
         do {
-            let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
+            let data = try Data(contentsOf: URL(fileURLWithPath: "\(path)/\(configName).json"), options: .alwaysMapped)
+            let json = try? JSONSerialization.jsonObject(with: data, options: [])
             
-            let jsonObject = JSON(data: data)
-            if jsonObject != JSON.null {
-                print(jsonObject)
-            } else {
-                print("Empty JSON")
-            }
+            dir = path
+            config = convertJSON(json ?? {
+                print("Could not parse: \(json)")
+                return
+            })
         } catch let error {
             print(error.localizedDescription)
+            return
         }
-    } else if let path = pathForFile("\(configName).plist", root: rootPath),
-        let config = NSDictionary(contentsOfFile: "\(path)/\(configName).plist") {
+    } else if let path = pathForFile("\(configName).plist", root: rootPath) {
+        isJson = false
         print("Reading plist")
-        var fileExist = false
-        
-        let generateFileWithContents = { (contents: String, fileExtension: String) in
-            
-            let data = (contents as NSString).data(using: String.Encoding.utf8.rawValue)
-            var filePath = pathForFile("\(configName).\(fileExtension)", root: rootPath) ?? path
-            filePath += "/\(configName).\(fileExtension)"
-            
-            fileExist = fileExist || fileManager.fileExists(atPath: filePath)
-            
-            fileManager.createFile(atPath: filePath, contents: data, attributes: nil)
-        }
-        
-        switch lang {
-        case .objC:
-            let hFile = genObjCHeaderForConfig(config, configName: configName)
-            generateFileWithContents(hFile, "h")
-            
-            let mFile = genObjCImplementationForConfig(config, configName: configName)
-            generateFileWithContents(mFile, "m")
-            
-        case .swift:
-            let swiftFile = genSwiftForConfig(config, configName:configName)
-            generateFileWithContents(swiftFile, "swift")
-        }
+        dir = path
+        config = NSDictionary(contentsOfFile: "\(path)/\(configName).plist")!
+    } else {
+        print("No input file found")
+        return
     }
+            
+    var fileExist = false
+    
+    let generateFileWithContents = { (contents: String, fileExtension: String) in
+        
+        let data = (contents as NSString).data(using: String.Encoding.utf8.rawValue)
+        var filePath: String = pathForFile("\(configName).\(fileExtension)", root: rootPath) ?? dir
+        filePath += "/\(configName).\(fileExtension)"
+        
+        fileExist = fileExist || fileManager.fileExists(atPath: filePath)
+        print("Creating \(filePath)")
+        fileManager.createFile(atPath: filePath, contents: data, attributes: nil)
+    }
+    
+    switch lang {
+    case .objC:
+        if isJson == true {
+            print("JSON source is not supported for Obj-C")
+            return
+        }
+        let hFile = genObjCHeaderForConfig(config, configName: configName)
+        generateFileWithContents(hFile, "h")
+        
+        let mFile = genObjCImplementationForConfig(config, configName: configName)
+        generateFileWithContents(mFile, "m")
+        
+    case .swift:
+        let swiftFile = genSwiftForConfig(config, configName:configName, isJson: isJson)
+        generateFileWithContents(swiftFile, "swift")
+    }
+    
+    
+
+    // Open finder if a new file was added so you can drag it to Xcode
+    if !fileExist {
+        let task = Process()
+        task.launchPath = "/usr/bin/open"
+        task.arguments = [dir]
+        task.launch()
+    }
+ 
+    
     print("Done")
 }
 

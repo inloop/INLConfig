@@ -39,7 +39,8 @@ extension INLConfig {
 		INLConfigDownloader().get(configURL) { configuration in
 			if let configuration = configuration {
 				FileManager.default.createFile(atPath: self.path(forConfig: self.configName), contents: configuration.data(using: String.Encoding.utf8), attributes: nil)
-				self.loadConfiguration(withPlist: self.configName)
+                self.loadConfiguration(withPlist: self.configName)
+                self.loadConfiguration(self.configName)
 				if let completion = completion {
 					DispatchQueue.main.async {
 						completion()
@@ -48,4 +49,33 @@ extension INLConfig {
 			}
 		}
 	}
+    
+    func convertJSON(_ json:Any) -> NSDictionary {
+        let result = NSMutableDictionary()
+        for (key, value) in json as! [String: Any] {
+            if let dict = value as? [String: Any] {
+                result.setValue(dict, forKey: key)
+            } else if let array = value as? [String] {
+                result.setValue(array, forKey: key)
+            } else {
+                result.setValue(value, forKey: key)
+            }
+        }
+        
+        return result
+    }
+    
+    func loadConfiguration(_ withJSON: String) {
+        do {
+            let data = try Data(contentsOf: URL(fileURLWithPath: "\(path)/\(configName).json"), options: .alwaysMapped)
+            let json = try? JSONSerialization.jsonObject(with: data, options: [])
+            
+            if (json != nil) {
+                self.configName = withJSON
+                self.config = convertJSON(json!) as! [AnyHashable : Any]
+            }
+        } catch _ {
+            // noop
+        }
+    }
 }

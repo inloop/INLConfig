@@ -1,7 +1,0 @@
-platform :osx, '10.12'
-use_frameworks!
-
-target 'INLConfigGenerator' do
-    pod 'SwiftyJSON'
-end
-

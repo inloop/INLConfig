@@ -18,13 +18,6 @@
     return self;
 }
 
--(instancetype)initWithJSON:(NSString *)jsonName {
-    if (self = [super init]) {
-        [self loadConfigurationWithJSON:jsonName];
-    }
-    return self;
-}
-
 -(void)loadConfigurationWithPlist:(NSString *)plistName {
     
     NSString * plistPath = [self pathForConfig:plistName];
@@ -36,20 +29,6 @@
     if (plistPath) {
         self.config = [NSDictionary dictionaryWithContentsOfFile:plistPath];
         self.configName = plistName;
-    }
-}
-    
--(void)loadConfigurationWithJSON:(NSString *)jsonName {
-    
-    NSString * plistPath = [self pathForConfig:jsonName];
-    
-    if (![[NSFileManager defaultManager] fileExistsAtPath:jsonName]) {
-        plistPath = [[NSBundle mainBundle] pathForResource:jsonName ofType:@"json"];
-    }
-    
-    if (plistPath) {
-        self.config = [NSDictionary dictionaryWithContentsOfFile:plistPath];
-        self.configName = jsonName;
     }
 }
 

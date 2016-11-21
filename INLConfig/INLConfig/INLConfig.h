@@ -21,10 +21,8 @@ FOUNDATION_EXPORT const unsigned char INLConfigVersionString[];
 @property (strong, nonatomic) NSString * _Nonnull configName;
 
 -(instancetype _Nonnull)initWithPlist:(NSString * _Nonnull)plistName;
--(instancetype _Nonnull)initWithJSON:(NSString * _Nonnull)jsonName;
 
 -(void)loadConfigurationWithPlist:(NSString * _Nonnull)plistName;
--(void)loadConfigurationWithJSON:(NSString * _Nonnull)fileName;
 
 -(NSString * _Nullable)stringForKey:(NSString * _Nonnull)key;
 -(NSNumber * _Nullable)numberForKey:(NSString * _Nonnull)key;

@@ -8,55 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		3E779C7C1DDF62E400FE0DD6 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E779C7B1DDF62E400FE0DD6 /* main.swift */; };
-		3EC4E8E51DDF668400A3BF9B /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EC4E8E41DDF668400A3BF9B /* SwiftyJSON.framework */; };
-		3EC4E8EB1DDF687F00A3BF9B /* SwiftyJSON.framework in Embedded Binaries */ = {isa = PBXBuildFile; fileRef = 3EC4E8E41DDF668400A3BF9B /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		AE169C9B7727BC61E47959FE /* Pods_INLConfigGenerator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42D346BC38F2F73D9FCD7D1 /* Pods_INLConfigGenerator.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		3EC4E8E71DDF677E00A3BF9B /* Embedded Binaries */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 6;
-			files = (
-				3EC4E8EB1DDF687F00A3BF9B /* SwiftyJSON.framework in Embedded Binaries */,
-			);
-			name = "Embedded Binaries";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3EC4E8EC1DDF690E00A3BF9B /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 7;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3E779C781DDF62E400FE0DD6 /* INLConfigGenerator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = INLConfigGenerator; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E779C7B1DDF62E400FE0DD6 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		3EC4E8E41DDF668400A3BF9B /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../../Library/Developer/Xcode/DerivedData/INLConfigGenerator-aorwxsvgqlflbbbaoboboebzjzst/Build/Products/Debug/SwiftyJSON/SwiftyJSON.framework"; sourceTree = "<group>"; };
-		3EC4E8E91DDF683400A3BF9B /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		71388DD9C55B442A227C0348 /* Pods-INLConfigGenerator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-INLConfigGenerator.debug.xcconfig"; path = "Pods/Target Support Files/Pods-INLConfigGenerator/Pods-INLConfigGenerator.debug.xcconfig"; sourceTree = "<group>"; };
 		8D49025FD4A41DE081288D9D /* Pods-INLConfigGenerator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-INLConfigGenerator.release.xcconfig"; path = "Pods/Target Support Files/Pods-INLConfigGenerator/Pods-INLConfigGenerator.release.xcconfig"; sourceTree = "<group>"; };
 		C42D346BC38F2F73D9FCD7D1 /* Pods_INLConfigGenerator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_INLConfigGenerator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		3E779C751DDF62E400FE0DD6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3EC4E8E51DDF668400A3BF9B /* SwiftyJSON.framework in Frameworks */,
-				AE169C9B7727BC61E47959FE /* Pods_INLConfigGenerator.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		0AC6E189864393C1C16C9574 /* Pods */ = {
@@ -80,7 +41,6 @@
 		3E779C6F1DDF62E400FE0DD6 = {
 			isa = PBXGroup;
 			children = (
-				3EC4E8E91DDF683400A3BF9B /* SwiftyJSON.framework */,
 				3E779C7A1DDF62E400FE0DD6 /* INLConfigGenerator */,
 				3E779C791DDF62E400FE0DD6 /* Products */,
 				0AC6E189864393C1C16C9574 /* Pods */,
@@ -111,12 +71,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3E779C7F1DDF62E400FE0DD6 /* Build configuration list for PBXNativeTarget "INLConfigGenerator" */;
 			buildPhases = (
-				0BA05BB34397FDA09DD12C85 /* [CP] Check Pods Manifest.lock */,
 				3E779C741DDF62E400FE0DD6 /* Sources */,
-				3E779C751DDF62E400FE0DD6 /* Frameworks */,
-				7BC36A88738845B4CBC87B07 /* [CP] Copy Pods Resources */,
-				3EC4E8EC1DDF690E00A3BF9B /* CopyFiles */,
-				3EC4E8E71DDF677E00A3BF9B /* Embedded Binaries */,
 			);
 			buildRules = (
 			);
@@ -160,39 +115,6 @@
 		};
 /* End PBXProject section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		0BA05BB34397FDA09DD12C85 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		7BC36A88738845B4CBC87B07 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-INLConfigGenerator/Pods-INLConfigGenerator-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		3E779C741DDF62E400FE0DD6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -223,6 +145,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -247,7 +170,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -271,6 +193,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -290,6 +213,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
 		};
