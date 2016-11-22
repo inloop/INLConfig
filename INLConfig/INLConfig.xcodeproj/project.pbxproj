@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3E0F89A21DDEF155000E1147 /* INLConfig.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F641351C6DC67700F263CA /* INLConfig.framework */; };
+		3E36399F1DE4695800989A2B /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E36399E1DE4695800989A2B /* main.swift */; };
 		3EC7D42C1DDF6E4600BF19FA /* INLConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC7D4291DDF6E4000BF19FA /* INLConfigTests.swift */; };
 		C314FC681C830F4200C04540 /* INLConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C314FC661C830F4200C04540 /* INLConfig.swift */; };
 		C314FC691C830F4200C04540 /* INLConfigDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C314FC671C830F4200C04540 /* INLConfigDownloader.swift */; };
@@ -25,8 +26,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		3E36399A1DE4695800989A2B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		3E0F899D1DDEF155000E1147 /* INLConfigTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = INLConfigTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E36399C1DE4695800989A2B /* INLConfigGenerator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = INLConfigGenerator; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E36399E1DE4695800989A2B /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		3EC7D4291DDF6E4000BF19FA /* INLConfigTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = INLConfigTests.swift; path = INLConfigTests/INLConfigTests.swift; sourceTree = "<group>"; };
 		C314FC661C830F4200C04540 /* INLConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = INLConfig.swift; sourceTree = "<group>"; };
 		C314FC671C830F4200C04540 /* INLConfigDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = INLConfigDownloader.swift; sourceTree = "<group>"; };
@@ -42,6 +57,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E0F89A21DDEF155000E1147 /* INLConfig.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3E3639991DE4695800989A2B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,10 +92,19 @@
 			name = Tests;
 			sourceTree = "<group>";
 		};
+		3E36399D1DE4695800989A2B /* INLConfigGenerator */ = {
+			isa = PBXGroup;
+			children = (
+				3E36399E1DE4695800989A2B /* main.swift */,
+			);
+			path = INLConfigGenerator;
+			sourceTree = "<group>";
+		};
 		C3F6412B1C6DC67700F263CA = {
 			isa = PBXGroup;
 			children = (
 				C3F641371C6DC67700F263CA /* INLConfig */,
+				3E36399D1DE4695800989A2B /* INLConfigGenerator */,
 				33681D3BED4F6394447B38ED /* Frameworks */,
 				C3F641361C6DC67700F263CA /* Products */,
 				3E0F89981DDEE822000E1147 /* Tests */,
@@ -85,6 +116,7 @@
 			children = (
 				C3F641351C6DC67700F263CA /* INLConfig.framework */,
 				3E0F899D1DDEF155000E1147 /* INLConfigTests.xctest */,
+				3E36399C1DE4695800989A2B /* INLConfigGenerator */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -133,6 +165,24 @@
 			productReference = 3E0F899D1DDEF155000E1147 /* INLConfigTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		3E36399B1DE4695800989A2B /* INLConfigGenerator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3E3639A21DE4695800989A2B /* Build configuration list for PBXNativeTarget "INLConfigGenerator" */;
+			buildPhases = (
+				3E3639981DE4695800989A2B /* Sources */,
+				3E3639991DE4695800989A2B /* Frameworks */,
+				3E36399A1DE4695800989A2B /* CopyFiles */,
+				3E3639A41DE4791900989A2B /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = INLConfigGenerator;
+			productName = INLConfigGenerator;
+			productReference = 3E36399C1DE4695800989A2B /* INLConfigGenerator */;
+			productType = "com.apple.product-type.tool";
+		};
 		C3F641341C6DC67700F263CA /* INLConfig */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C3F6413D1C6DC67700F263CA /* Build configuration list for PBXNativeTarget "INLConfig" */;
@@ -165,6 +215,10 @@
 						CreatedOnToolsVersion = 8.1;
 						ProvisioningStyle = Automatic;
 					};
+					3E36399B1DE4695800989A2B = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+					};
 					C3F641341C6DC67700F263CA = {
 						CreatedOnToolsVersion = 7.2.1;
 						LastSwiftMigration = 0810;
@@ -185,6 +239,7 @@
 			targets = (
 				C3F641341C6DC67700F263CA /* INLConfig */,
 				3E0F899C1DDEF155000E1147 /* INLConfigTests */,
+				3E36399B1DE4695800989A2B /* INLConfigGenerator */,
 			);
 		};
 /* End PBXProject section */
@@ -206,12 +261,37 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3E3639A41DE4791900989A2B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/INLConfigGenerator/main.swift",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"#!/usr/bin/env xcrun --sdk macosx swift\" > genconfig\ncat INLConfigGenerator/main.swift >> genconfig\nchmod a+x genconfig\nmv genconfig ../";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3E0F89991DDEF155000E1147 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				3EC7D42C1DDF6E4600BF19FA /* INLConfigTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3E3639981DE4695800989A2B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3E36399F1DE4695800989A2B /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,7 +330,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = eu.inloop.INLConfigTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "macOS iOS";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -270,7 +351,39 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = eu.inloop.INLConfigTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "macOS iOS";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		3E3639A01DE4695800989A2B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		3E3639A11DE4695800989A2B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -316,7 +429,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SUPPORTED_PLATFORMS = "macOS iOS";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -357,7 +470,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SUPPORTED_PLATFORMS = "macOS iOS";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -387,6 +500,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Inloop.INLConfig;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -413,6 +527,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Inloop.INLConfig;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -428,6 +543,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		3E3639A21DE4695800989A2B /* Build configuration list for PBXNativeTarget "INLConfigGenerator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3E3639A01DE4695800989A2B /* Debug */,
+				3E3639A11DE4695800989A2B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		C3F6412F1C6DC67700F263CA /* Build configuration list for PBXProject "INLConfig" */ = {
 			isa = XCConfigurationList;
