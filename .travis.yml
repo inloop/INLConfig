@@ -1,0 +1,5 @@
+language: swift
+xcode_project: INLConfig/INLConfig.xcodeproj
+xcode_scheme: INLConfigTests
+osx_image: xcode8.1	
+# xcode_sdk: iphonesimulatorX.Y
