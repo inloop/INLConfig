@@ -31,7 +31,8 @@ class ViewController: UIViewController {
 
 	func test() {
 		//! Test - Uncoment the SampleConfig.h import in the ConfigDemo-Bridging-Header.h
-//		titleLabel.text = INLConfig.sampleConfig().sampleURL()
+//        titleLabel.text = INLConfig.another().magicString()
+//        titleLabel.text = INLConfig.sampleConfig.aDict.description
 //		titleLabel.text = INLConfig.anotherConfig.magicString as String
 //		titleLabel.text = "\(INLConfig.anotherConfig.magicArray ?? 0)"
 	}

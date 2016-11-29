@@ -9,6 +9,11 @@
 import Foundation
 
 extension INLConfig {
+    
+    public convenience init(JSON: String) {
+        self.init()
+        loadConfiguration(withJSON: JSON)
+    }
 
 	public func updateConfig(_ completion: (()->())?) {
 		guard let meta = config["INLMeta"] as? NSDictionary,
@@ -35,12 +40,16 @@ extension INLConfig {
 		else {
 			return
 		}
-
+        
 		INLConfigDownloader().get(configURL) { configuration in
 			if let configuration = configuration {
 				FileManager.default.createFile(atPath: self.path(forConfig: self.configName), contents: configuration.data(using: String.Encoding.utf8), attributes: nil)
-                self.loadConfiguration(withPlist: self.configName)
-                self.loadConfiguration(self.configName)
+                if (configURLStr as! String).hasSuffix("json") {
+                    self.loadConfiguration(withJSON: self.configName)
+                } else {
+                    self.loadConfiguration(withPlist: self.configName)
+                }
+                
 				if let completion = completion {
 					DispatchQueue.main.async {
 						completion()
@@ -65,17 +74,20 @@ extension INLConfig {
         return result
     }
     
-    func loadConfiguration(_ withJSON: String) {
+    func loadConfiguration(withJSON: String) {
         do {
-            let data = try Data(contentsOf: URL(fileURLWithPath: "\(path)/\(configName).json"), options: .alwaysMapped)
+            let path = Bundle.main.path(forResource: withJSON, ofType: "json")
+            print("\(path)")
+            let data = try Data(contentsOf: URL(fileURLWithPath: path!), options: .alwaysMapped)
             let json = try? JSONSerialization.jsonObject(with: data, options: [])
             
             if (json != nil) {
                 self.configName = withJSON
                 self.config = convertJSON(json!) as! [AnyHashable : Any]
             }
-        } catch _ {
+        } catch {
             // noop
+            print("Error info: \(error)")
         }
     }
 }

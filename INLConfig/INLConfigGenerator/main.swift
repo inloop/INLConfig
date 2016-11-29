@@ -19,10 +19,24 @@ extension NSDictionary {
         }
         return code
     }
+    
+    func varSwiftGenReduce(_ reduceBlock:(_ key: String, _ value: AnyObject, _ type: String, _ name: String) -> String) -> String {
+        var code = ""
+        for (key, value) in self {
+            if String(describing: key) == "INLMeta" {
+                continue
+            }
+            let type = swiftTypeForValue(value as AnyObject)
+            let name = String(describing: key).decapitalizedString
+            
+            code += reduceBlock(String(describing: key), value as AnyObject, type, name)
+        }
+        return code
+    }
 }
 
 func genObjCHeaderForConfig(_ config: NSDictionary, configName: String) -> String {
-    return "\n#import \"INLConfig.h\"\n\n"
+    return "\n#import <INLConfig/INLConfig.h>\n\n"
         + "//! Automatically generated file. Do not modify! \n\n"
         + "@interface INLConfig (\(configName))\n\n"
         + "+(INLConfig *)\(configName.decapitalizedString);\n"
@@ -61,20 +75,19 @@ func genSwiftForConfig(_ config: NSDictionary, configName: String, isJson: Bool)
         + "\tstatic var \(configName.decapitalizedString): INLConfig {\n"
         + "\t\tstruct Static {\n"
     if isJson {
-        result += "\t\t\tstatic let config: INLConfig = INLConfig()\n"
-            + "\t\t\tconfig.loadConfiguration(\"\(configName)\")\n"
+        result += "\t\t\tstatic let config: INLConfig = INLConfig(JSON: \"\(configName)\")\n"
     } else {
         result += "\t\t\tstatic let config: INLConfig = INLConfig(plist: \"\(configName)\")\n"
     }
     result += "\t\t}\n\t\treturn Static.config\n"
         + "\t}\n"
-        + config.varGenReduce { key, value, type, name in
+        + config.varSwiftGenReduce { key, value, type, name in
             "\n\tvar \(name): \(type) {\n"
-                + "\t\treturn \(getterForValue(value))(\"\(key)\")!\n"
+                + "\t\treturn \(getterSwiftForValue(value))\"\(key)\")!\(getterSwiftSuffixForValue(value))\n"
                 + "\t}\n"
         }
         + "\n\t// Convenience"
-        + config.varGenReduce { key, value, type, name in
+        + config.varSwiftGenReduce { key, value, type, name in
             "\n\tstatic var \(name): \(type) {\n"
                 + "\t\treturn \(configName.decapitalizedString).\(name)\n"
                 + "\t}\n"
@@ -126,6 +139,36 @@ func getterForValue(_ value: AnyObject) -> String {
     if value is Data { return "dataForKey" }
     assert(false, "Invalid type \(value)")
     return "Any"
+}
+
+func swiftTypeForValue(_ value: AnyObject) -> String {
+    if value is String { return "String" }
+    if value is NSNumber { return "NSNumber" }
+    if value is NSArray { return "Array<String>" }
+    if value is NSDictionary { return "NSDictionary" }
+    if value is Data { return "Data" }
+    assert(false, "Invalid type \(value)")
+    return "Any"
+}
+
+func getterSwiftForValue(_ value: AnyObject) -> String {
+    if value is String { return "string(forKey: " }
+    if value is NSNumber { return "number(forKey: " }
+    if value is NSArray { return "array(forKey: " }
+    if value is NSDictionary { return "dictionary(forKey: " }
+    if value is Data { return "data(forKey: " }
+    assert(false, "Invalid type \(value)")
+    return ""
+}
+
+func getterSwiftSuffixForValue(_ value: AnyObject) -> String {
+    if value is String { return " as String" }
+    if value is NSNumber { return " as NSNumber" }
+    if value is NSArray { return " as! Array<String>" }
+    if value is NSDictionary { return " as NSDictionary" }
+    if value is Data { return "" }
+    assert(false, "Invalid type \(value)")
+    return ""
 }
 
 func convertJSON(_ json:Any) -> NSDictionary {
